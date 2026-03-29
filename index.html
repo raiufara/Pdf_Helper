@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDFへるぱー</title>
+    <title>PDFヘルパー</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Material Symbols -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
 
     <!-- 処理用ライブラリ -->
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
@@ -28,21 +28,22 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Roboto', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Manrope', 'sans-serif'],
                     },
                     colors: {
-                        surface: '#f8fafc',
-                        surfaceVariant: '#e2e8f0',
-                        primary: '#0f766e',
-                        primaryContainer: '#ccfbf1',
-                        secondary: '#475569',
-                        error: '#be123c',
-                        errorContainer: '#ffe4e6',
+                        surface: 'var(--color-surface)',
+                        surfaceVariant: 'var(--color-outline-strong)',
+                        primary: 'var(--color-primary)',
+                        primaryContainer: 'var(--color-primary-container)',
+                        secondary: 'var(--color-secondary)',
+                        error: 'var(--color-error)',
+                        errorContainer: 'var(--color-error-container)',
                     },
                     boxShadow: {
-                        'elevation-1': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-                        'elevation-2': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-                        'elevation-3': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                        'elevation-1': 'var(--shadow-soft)',
+                        'elevation-2': 'var(--shadow-ambient)',
+                        'elevation-3': 'var(--shadow-pressed)',
                     }
                 }
             }
@@ -77,47 +78,772 @@
         #thumbnail-grid::-webkit-scrollbar-track { background: transparent; }
         #thumbnail-grid::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
     </style>
+    <style>
+        :root {
+            color-scheme: light;
+            --color-background: #f6fafe;
+            --color-surface: #f0f4f8;
+            --color-surface-lowest: #ffffff;
+            --color-surface-highest: #dfe3e7;
+            --color-surface-overlay: rgba(255, 255, 255, 0.76);
+            --color-surface-alt: #e8eef4;
+            --color-primary: #005c55;
+            --color-primary-container: #0f766e;
+            --color-primary-glow: rgba(15, 118, 110, 0.18);
+            --color-on-primary: #effffb;
+            --color-secondary: #1e3943;
+            --color-text: #233842;
+            --color-text-soft: #4f6471;
+            --color-text-muted: #728492;
+            --color-outline: rgba(66, 92, 104, 0.14);
+            --color-outline-strong: rgba(66, 92, 104, 0.22);
+            --color-error: #be123c;
+            --color-error-container: rgba(225, 29, 72, 0.14);
+            --color-toast-info: rgba(30, 57, 67, 0.9);
+            --color-ghost: rgba(255, 255, 255, 0.62);
+            --color-dropzone: rgba(15, 118, 110, 0.06);
+            --color-dropzone-strong: rgba(15, 118, 110, 0.14);
+            --color-overlay: rgba(16, 28, 38, 0.18);
+            --color-scroll-track: rgba(15, 23, 42, 0.05);
+            --color-scroll-thumb: rgba(100, 116, 139, 0.34);
+            --color-scroll-thumb-hover: rgba(71, 85, 105, 0.52);
+            --shadow-ambient: 0 24px 48px rgba(18, 44, 56, 0.08);
+            --shadow-soft: 0 18px 40px rgba(18, 44, 56, 0.12);
+            --shadow-pressed: 0 24px 44px rgba(18, 44, 56, 0.18);
+        }
+
+        :root[data-theme="dark"] {
+            color-scheme: dark;
+            --color-background: #0b1326;
+            --color-surface: #111a2e;
+            --color-surface-lowest: #182338;
+            --color-surface-highest: #222a3d;
+            --color-surface-overlay: rgba(20, 29, 50, 0.78);
+            --color-surface-alt: #2a3348;
+            --color-primary: #57f1db;
+            --color-primary-container: #2dd4bf;
+            --color-primary-glow: rgba(87, 241, 219, 0.2);
+            --color-on-primary: #003731;
+            --color-secondary: #dae2fd;
+            --color-text: #dae2fd;
+            --color-text-soft: #bacac5;
+            --color-text-muted: #8ea2b9;
+            --color-outline: rgba(87, 241, 219, 0.12);
+            --color-outline-strong: rgba(87, 241, 219, 0.22);
+            --color-error: #fb7185;
+            --color-error-container: rgba(251, 113, 133, 0.16);
+            --color-toast-info: rgba(20, 29, 50, 0.92);
+            --color-ghost: rgba(34, 42, 61, 0.76);
+            --color-dropzone: rgba(87, 241, 219, 0.08);
+            --color-dropzone-strong: rgba(87, 241, 219, 0.18);
+            --color-overlay: rgba(6, 14, 32, 0.62);
+            --color-scroll-track: rgba(218, 226, 253, 0.05);
+            --color-scroll-thumb: rgba(143, 162, 185, 0.3);
+            --color-scroll-thumb-hover: rgba(143, 162, 185, 0.48);
+            --shadow-ambient: 0 20px 40px rgba(6, 14, 32, 0.6);
+            --shadow-soft: 0 20px 40px rgba(6, 14, 32, 0.46);
+            --shadow-pressed: 0 28px 50px rgba(6, 14, 32, 0.62);
+        }
+
+        html {
+            background: var(--color-background);
+        }
+
+        body {
+            position: relative;
+            overflow-x: hidden;
+            background:
+                radial-gradient(circle at top left, rgba(15, 118, 110, 0.12), transparent 28rem),
+                radial-gradient(circle at top right, rgba(143, 162, 185, 0.16), transparent 24rem),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.1), transparent 30%),
+                var(--color-background);
+            color: var(--color-text);
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 9999px;
+            filter: blur(64px);
+            opacity: 0.55;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::before {
+            top: 3rem;
+            left: -4rem;
+            width: 16rem;
+            height: 16rem;
+            background: rgba(15, 118, 110, 0.18);
+        }
+
+        body::after {
+            right: -4rem;
+            bottom: 8rem;
+            width: 18rem;
+            height: 18rem;
+            background: rgba(148, 163, 184, 0.18);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--color-scroll-track); }
+        ::-webkit-scrollbar-thumb { background: var(--color-scroll-thumb); border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--color-scroll-thumb-hover); }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.16);
+            border-top: 4px solid var(--color-primary);
+        }
+
+        .app-shell {
+            position: relative;
+            background: var(--color-surface-overlay);
+            backdrop-filter: blur(18px);
+            border: 1px solid var(--color-outline);
+            border-radius: 2rem;
+            box-shadow: var(--shadow-ambient);
+            overflow: hidden;
+        }
+
+        .app-shell::before {
+            content: '';
+            position: absolute;
+            inset: 0 0 auto;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--color-primary-glow), transparent);
+            opacity: 0.9;
+            pointer-events: none;
+        }
+
+        .header-title {
+            font-family: 'Manrope', sans-serif;
+            font-size: clamp(2.4rem, 4vw, 3.75rem);
+            line-height: 0.98;
+            letter-spacing: -0.045em;
+            color: var(--color-secondary);
+        }
+
+        .header-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.45rem 0.85rem;
+            border-radius: 9999px;
+            background: var(--color-ghost);
+            color: var(--color-text-soft);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .header-copy {
+            max-width: 38rem;
+            color: var(--color-text-muted);
+            font-size: 0.98rem;
+            line-height: 1.75;
+        }
+
+        .kicker-icon,
+        .hero-icon,
+        .theme-toggle-icon,
+        .tab-icon,
+        .upload-icon,
+        .action-icon,
+        .file-icon,
+        .icon-button-symbol,
+        .inline-icon,
+        .toast-icon {
+            display: inline-grid;
+            place-items: center;
+            flex-shrink: 0;
+        }
+
+        .kicker-icon,
+        .theme-toggle-icon,
+        .tab-icon,
+        .upload-icon,
+        .action-icon,
+        .file-icon,
+        .inline-icon,
+        .toast-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 260, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .kicker-icon {
+            width: 1.55rem;
+            height: 1.55rem;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, rgba(15, 118, 110, 0.12), rgba(15, 118, 110, 0.02));
+            color: var(--color-primary);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+        }
+
+        .hero-icon {
+            width: 3.9rem;
+            height: 3.9rem;
+            border-radius: 1.3rem;
+            background:
+                radial-gradient(circle at top left, rgba(255, 255, 255, 0.4), transparent 56%),
+                linear-gradient(135deg, rgba(15, 118, 110, 0.16), rgba(15, 118, 110, 0.04)),
+                var(--color-surface-lowest);
+            color: var(--color-primary);
+            box-shadow: 0 0 0 8px var(--color-primary-glow), var(--shadow-soft);
+            border: 1px solid var(--color-outline);
+            font-size: 2rem !important;
+            font-variation-settings: 'FILL' 1, 'wght' 280, 'GRAD' 0, 'opsz' 48;
+        }
+
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 9999px;
+            border: 1px solid var(--color-outline);
+            background: var(--color-surface-overlay);
+            backdrop-filter: blur(14px);
+            color: var(--color-text);
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-1px);
+            border-color: var(--color-outline-strong);
+            box-shadow: var(--shadow-pressed);
+        }
+
+        .theme-toggle-icon {
+            width: 2.35rem;
+            height: 2.35rem;
+            border-radius: 0.95rem;
+            background: linear-gradient(135deg, rgba(15, 118, 110, 0.16), rgba(15, 118, 110, 0.04));
+            color: var(--color-primary);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+        }
+
+        .theme-toggle-label {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.05rem;
+            text-align: left;
+            line-height: 1.2;
+        }
+
+        .theme-toggle-label strong {
+            font-size: 0.92rem;
+            font-weight: 700;
+        }
+
+        .theme-toggle-label span {
+            font-size: 0.72rem;
+            color: var(--color-text-muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .tab-strip {
+            display: grid !important;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0.45rem;
+            padding: 0.72rem;
+            border-bottom: 0 !important;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent), var(--color-surface);
+            overflow: visible !important;
+        }
+
+        .tab-button {
+            border: 0 !important;
+            border-radius: 1rem;
+            color: var(--color-text-soft);
+            font-weight: 600;
+            gap: 0.6rem;
+            min-width: 0;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .tab-label {
+            display: inline-block;
+            line-height: 1.1;
+            white-space: nowrap;
+        }
+
+        .tab-button:hover {
+            background: var(--color-ghost) !important;
+            color: var(--color-text) !important;
+        }
+
+        .tab-button.is-active {
+            background: var(--color-surface-lowest) !important;
+            color: var(--color-primary) !important;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .tab-icon {
+            width: 1.95rem;
+            height: 1.95rem;
+            border-radius: 0.85rem;
+            background: linear-gradient(135deg, rgba(15, 118, 110, 0.12), rgba(15, 118, 110, 0.02));
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+
+        .tab-button:hover .tab-icon,
+        .tab-button.is-active .tab-icon {
+            transform: translateY(-1px);
+            box-shadow: 0 0 0 4px var(--color-primary-glow), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+        }
+
+        .app-section {
+            position: relative;
+        }
+
+        .app-section h2 {
+            font-family: 'Manrope', sans-serif;
+            letter-spacing: -0.03em;
+            color: var(--color-secondary);
+            margin-bottom: 1.4rem;
+        }
+
+        .upload-zone {
+            position: relative;
+            overflow: hidden;
+            border: 1.5px dashed var(--color-outline-strong) !important;
+            border-radius: 1.75rem;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 70%),
+                var(--color-surface-lowest) !important;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.24s ease, border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .upload-zone::after {
+            content: '';
+            position: absolute;
+            inset: -20% auto -20% -40%;
+            width: 40%;
+            background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.34) 50%, transparent 100%);
+            opacity: 0;
+            transform: translateX(-20%) rotate(10deg);
+            transition: transform 0.42s ease, opacity 0.28s ease;
+            pointer-events: none;
+        }
+
+        .upload-zone:hover {
+            transform: translateY(-1px) scale(0.998);
+            border-color: var(--color-primary) !important;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.24), transparent 70%),
+                var(--color-dropzone) !important;
+            box-shadow: 0 0 0 4px var(--color-primary-glow), var(--shadow-soft);
+        }
+
+        .upload-zone:hover::after {
+            opacity: 0.55;
+            transform: translateX(250%) rotate(10deg);
+        }
+
+        .upload-zone.is-dragover {
+            border-color: var(--color-primary) !important;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.14), transparent 70%),
+                var(--color-dropzone-strong) !important;
+            box-shadow: 0 0 0 6px var(--color-primary-glow), var(--shadow-soft);
+        }
+
+        .upload-icon {
+            width: 4.5rem;
+            height: 4.5rem;
+            margin: 0 auto 1rem;
+            border-radius: 1.4rem;
+            background:
+                radial-gradient(circle at top left, rgba(255, 255, 255, 0.35), transparent 58%),
+                linear-gradient(135deg, rgba(15, 118, 110, 0.16), rgba(15, 118, 110, 0.03)),
+                var(--color-surface);
+            border: 1px solid var(--color-outline);
+            color: var(--color-primary) !important;
+            box-shadow: var(--shadow-soft);
+            font-size: 2rem !important;
+            transition: transform 0.24s ease, box-shadow 0.24s ease, background 0.24s ease;
+        }
+
+        .upload-zone:hover .upload-icon {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 0 0 8px var(--color-primary-glow), var(--shadow-soft);
+        }
+
+        .action-button {
+            border: 0;
+            border-radius: 1.35rem;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-container)) !important;
+            color: var(--color-on-primary) !important;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+        }
+
+        .action-button:hover:not(:disabled) {
+            transform: translateY(-1px);
+            filter: saturate(1.05) brightness(1.02);
+            box-shadow: var(--shadow-pressed);
+        }
+
+        .action-button:disabled {
+            filter: grayscale(0.08);
+            box-shadow: none;
+        }
+
+        .action-icon {
+            width: 2.15rem;
+            height: 2.15rem;
+            border-radius: 0.9rem;
+            background: rgba(255, 255, 255, 0.16);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.26);
+        }
+
+        .mode-switch {
+            padding: 0.4rem;
+            border-radius: 1.2rem;
+            background: var(--color-surface);
+            border: 1px solid var(--color-outline);
+        }
+
+        .mode-button {
+            border-radius: 0.95rem;
+            color: var(--color-text-muted);
+            transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .mode-button:hover {
+            color: var(--color-text) !important;
+        }
+
+        .mode-button.is-active {
+            background: var(--color-surface-lowest) !important;
+            color: var(--color-primary) !important;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .settings-panel {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), transparent), var(--color-surface) !important;
+            border: 1px solid var(--color-outline) !important;
+            border-radius: 1.75rem;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .file-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.95rem 1rem;
+            background: var(--color-surface-lowest);
+            border: 1px solid var(--color-outline);
+            border-radius: 1rem;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .file-icon {
+            width: 2.1rem;
+            height: 2.1rem;
+            border-radius: 0.85rem;
+            background: linear-gradient(135deg, rgba(15, 118, 110, 0.14), rgba(15, 118, 110, 0.03));
+            color: var(--color-primary) !important;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24);
+        }
+
+        .icon-button-symbol {
+            width: 1.85rem;
+            height: 1.85rem;
+            border-radius: 9999px;
+            color: currentColor;
+            font-variation-settings: 'FILL' 1, 'wght' 260, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .thumbnail-item canvas {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 0.9rem;
+            border: 2px solid transparent;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .thumbnail-item .check-icon {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .thumbnail-item.is-selected canvas {
+            transform: translateY(-1px);
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 5px var(--color-primary-glow), var(--shadow-soft);
+        }
+
+        .thumbnail-item.is-selected .check-icon {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .toast-card {
+            color: #ffffff;
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .toast-icon {
+            width: 1.85rem;
+            height: 1.85rem;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .toast-card.toast-success {
+            background: linear-gradient(135deg, rgba(0, 92, 85, 0.92), rgba(15, 118, 110, 0.92));
+        }
+
+        .toast-card.toast-error {
+            background: linear-gradient(135deg, rgba(190, 18, 60, 0.92), rgba(225, 29, 72, 0.88));
+        }
+
+        .toast-card.toast-info {
+            background: var(--color-toast-info);
+        }
+
+        .footer-copy {
+            color: var(--color-text-muted);
+        }
+
+        .loading-overlay {
+            background: var(--color-overlay) !important;
+            backdrop-filter: blur(16px);
+        }
+
+        .loading-overlay #loading-text {
+            color: var(--color-text);
+        }
+
+        .inline-icon {
+            width: 1.35rem;
+            height: 1.35rem;
+            border-radius: 9999px;
+            background: rgba(15, 118, 110, 0.1);
+            color: var(--color-primary) !important;
+            vertical-align: -0.15rem;
+        }
+
+        .bg-white { background-color: var(--color-surface-lowest) !important; }
+        .bg-surface,
+        .bg-slate-50 { background-color: var(--color-surface) !important; }
+        .bg-slate-100,
+        .bg-slate-200 { background-color: var(--color-surface-highest) !important; }
+        .text-slate-400 { color: var(--color-text-muted) !important; }
+        .text-slate-500,
+        .text-slate-600 { color: var(--color-text-soft) !important; }
+        .text-slate-700,
+        .text-slate-800 { color: var(--color-text) !important; }
+        .border-slate-200,
+        .border-slate-300,
+        .border-surfaceVariant { border-color: var(--color-outline) !important; }
+        .hover\:bg-slate-50:hover,
+        .hover\:bg-slate-100:hover,
+        .hover\:bg-slate-200:hover { background-color: var(--color-surface-highest) !important; }
+        .hover\:text-slate-700:hover { color: var(--color-text) !important; }
+        .hover\:bg-errorContainer:hover { background-color: var(--color-error-container) !important; }
+
+        #thumbnail-grid::-webkit-scrollbar { width: 6px; }
+        #thumbnail-grid::-webkit-scrollbar-track { background: transparent; }
+        #thumbnail-grid::-webkit-scrollbar-thumb { background: var(--color-scroll-thumb); border-radius: 9999px; }
+
+        #split-options > label {
+            border-color: var(--color-outline) !important;
+            background: var(--color-surface-lowest);
+            border-radius: 1.15rem;
+        }
+
+        #extract-ui-container {
+            border-top-color: var(--color-outline) !important;
+        }
+
+        #extract-ui-container button {
+            background: var(--color-ghost) !important;
+            color: var(--color-text-soft) !important;
+            border-radius: 9999px;
+        }
+
+        #extract-ui-container button:hover {
+            color: var(--color-text) !important;
+        }
+
+        #thumbnail-grid {
+            background: var(--color-surface-lowest) !important;
+            border-color: var(--color-outline) !important;
+            border-radius: 1.2rem;
+        }
+
+        main input[type="text"],
+        main select {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent), var(--color-surface-lowest) !important;
+            color: var(--color-text) !important;
+            border-color: transparent !important;
+            border-bottom: 2px solid var(--color-outline-strong) !important;
+            border-radius: 1rem !important;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+        }
+
+        main input[type="text"]:focus,
+        main select:focus {
+            outline: none;
+            border-bottom-color: var(--color-primary) !important;
+            box-shadow: 0 0 0 4px var(--color-primary-glow);
+        }
+
+        main input[type="radio"] {
+            accent-color: var(--color-primary);
+        }
+
+        button:focus-visible,
+        input:focus-visible,
+        select:focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+
+        @media (max-width: 980px) {
+            .tab-strip {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .tab-button {
+                flex-direction: column;
+                min-height: 5.65rem;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .theme-toggle {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .tab-strip {
+                gap: 0.35rem;
+                padding: 0.58rem;
+            }
+
+            .tab-button {
+                gap: 0.45rem !important;
+                padding: 0.82rem 0.78rem !important;
+                font-size: 0.92rem;
+                min-height: 5.4rem;
+            }
+
+            .tab-icon {
+                width: 1.72rem;
+                height: 1.72rem;
+                border-radius: 0.72rem;
+                font-size: 1.02rem !important;
+            }
+
+            .upload-zone {
+                padding: 1.9rem 1.15rem !important;
+                border-radius: 1.45rem;
+            }
+
+            .upload-icon {
+                width: 4rem;
+                height: 4rem;
+                margin-bottom: 0.8rem;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .tab-strip {
+                gap: 0.3rem;
+                padding: 0.48rem;
+            }
+
+            .tab-button {
+                gap: 0.36rem !important;
+                padding: 0.74rem 0.62rem !important;
+                font-size: 0.84rem;
+                letter-spacing: -0.01em;
+                min-height: 5rem;
+            }
+
+            .tab-icon {
+                width: 1.58rem;
+                height: 1.58rem;
+                border-radius: 0.64rem;
+                font-size: 0.96rem !important;
+            }
+        }
+    </style>
 </head>
-<body class="min-h-screen flex flex-col items-center py-10 px-4">
+<body class="min-h-screen w-full flex flex-col items-center py-8 md:py-12 px-4 sm:px-6">
 
     <!-- ヘッダー -->
-    <header class="w-full max-w-3xl mb-8 text-center">
-        <h1 class="text-3xl font-bold text-secondary mb-2 flex items-center justify-center gap-2">
-            <span class="material-symbols-outlined text-4xl text-primary">picture_as_pdf</span>
-            PDFへるぱー
+    <header class="w-full max-w-5xl mb-10 text-center">
+        <div class="header-kicker mx-auto mb-4">
+            <span class="material-symbols-outlined kicker-icon">architecture</span>
+            Editorial Utility
+        </div>
+        <h1 class="header-title font-bold mb-2 flex items-center justify-center gap-3">
+            <span class="material-symbols-outlined hero-icon">picture_as_pdf</span>
+            PDFヘルパー
         </h1>
-        <p class="text-sm text-slate-500">すべての処理はお使いのブラウザ内で完結します。</p>
+        <div class="mt-6 flex justify-center">
+            <button id="theme-toggle" type="button" class="theme-toggle" onclick="toggleTheme()" aria-live="polite">
+                <span id="theme-toggle-icon" class="material-symbols-outlined theme-toggle-icon">dark_mode</span>
+                <span class="theme-toggle-label">
+                    <strong id="theme-toggle-title">Dark Mode</strong>
+                    <span id="theme-toggle-copy">Switch Theme</span>
+                </span>
+            </button>
+        </div>
     </header>
 
     <!-- メインカード -->
-    <main class="w-full max-w-3xl bg-white rounded-2xl shadow-elevation-2 overflow-hidden">
+    <main class="app-shell w-full max-w-5xl overflow-hidden">
         
         <!-- タブナビゲーション -->
-        <div class="flex border-b border-surfaceVariant bg-surface overflow-x-auto">
-            <button id="tab-merge" class="flex-1 py-4 px-2 text-center font-medium text-primary border-b-2 border-primary transition-colors flex items-center justify-center gap-2 hover:bg-slate-100 min-w-max" onclick="switchTab('merge')">
-                <span class="material-symbols-outlined">library_add</span>
-                PDFを結合
+        <div class="tab-strip flex overflow-x-auto">
+            <button id="tab-merge" class="tab-button is-active flex-1 py-4 px-4 text-center font-medium text-primary border-b-2 border-primary transition-colors flex items-center justify-center gap-2 min-w-max" onclick="switchTab('merge')">
+                <span class="material-symbols-outlined tab-icon">library_add</span>
+                <span class="tab-label">PDF結合</span>
             </button>
-            <button id="tab-split" class="flex-1 py-4 px-2 text-center font-medium text-secondary border-b-2 border-transparent transition-colors flex items-center justify-center gap-2 hover:bg-slate-100 min-w-max" onclick="switchTab('split')">
-                <span class="material-symbols-outlined">call_split</span>
-                PDFを分割
+            <button id="tab-split" class="tab-button flex-1 py-4 px-4 text-center font-medium text-secondary border-b-2 border-transparent transition-colors flex items-center justify-center gap-2 min-w-max" onclick="switchTab('split')">
+                <span class="material-symbols-outlined tab-icon">call_split</span>
+                <span class="tab-label">PDF分割</span>
             </button>
-            <button id="tab-convert" class="flex-1 py-4 px-2 text-center font-medium text-secondary border-b-2 border-transparent transition-colors flex items-center justify-center gap-2 hover:bg-slate-100 min-w-max" onclick="switchTab('convert')">
-                <span class="material-symbols-outlined">transform</span>
-                PDF ⇄ 画像
+            <button id="tab-convert" class="tab-button flex-1 py-4 px-4 text-center font-medium text-secondary border-b-2 border-transparent transition-colors flex items-center justify-center gap-2 min-w-max" onclick="switchTab('convert')">
+                <span class="material-symbols-outlined tab-icon">transform</span>
+                <span class="tab-label">PDF⇔画像</span>
             </button>
-            <button id="tab-pagenum" class="flex-1 py-4 px-2 text-center font-medium text-secondary border-b-2 border-transparent transition-colors flex items-center justify-center gap-2 hover:bg-slate-100 min-w-max" onclick="switchTab('pagenum')">
-                <span class="material-symbols-outlined">pin</span>
-                ページ番号
+            <button id="tab-pagenum" class="tab-button flex-1 py-4 px-4 text-center font-medium text-secondary border-b-2 border-transparent transition-colors flex items-center justify-center gap-2 min-w-max" onclick="switchTab('pagenum')">
+                <span class="material-symbols-outlined tab-icon">pin</span>
+                <span class="tab-label">ページ採番</span>
             </button>
         </div>
 
         <!-- 結合機能セクション -->
-        <section id="section-merge" class="p-6 md:p-8">
+        <section id="section-merge" class="app-section p-6 md:p-10">
             <h2 class="text-xl font-medium mb-4 text-secondary">複数のPDFを1つに結合</h2>
             
-            <div id="merge-dropzone" class="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center bg-slate-50 hover:bg-slate-100 transition-colors cursor-pointer mb-6" onclick="document.getElementById('merge-input').click()">
-                <span class="material-symbols-outlined text-5xl text-slate-400 mb-2">upload_file</span>
+            <div id="merge-dropzone" class="upload-zone border-2 border-dashed border-slate-300 rounded-xl p-8 text-center bg-slate-50 transition-colors cursor-pointer mb-6" onclick="document.getElementById('merge-input').click()">
+                <span class="material-symbols-outlined upload-icon">upload_file</span>
                 <p class="text-slate-600 font-medium">クリックまたはドラッグ＆ドロップでファイルを追加</p>
                 <p class="text-xs text-slate-400 mt-1">複数のファイルを選択できます</p>
                 <input type="file" id="merge-input" multiple accept="application/pdf" class="hidden" onchange="handleMergeFilesSelect(event)">
@@ -125,22 +851,22 @@
 
             <div id="merge-file-list" class="space-y-2 mb-6 empty:hidden"></div>
 
-            <button id="btn-merge-action" class="w-full bg-primary text-white py-3 rounded-lg font-medium shadow-elevation-1 hover:shadow-elevation-2 hover:bg-teal-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2" disabled onclick="processMerge()">
-                <span class="material-symbols-outlined">merge</span>
+            <button id="btn-merge-action" class="action-button w-full bg-primary text-white py-3 rounded-lg font-medium shadow-elevation-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2" disabled onclick="processMerge()">
+                <span class="material-symbols-outlined action-icon">merge</span>
                 結合してダウンロード
             </button>
         </section>
 
         <!-- 分割機能セクション -->
-        <section id="section-split" class="p-6 md:p-8 hidden">
+        <section id="section-split" class="app-section p-6 md:p-10 hidden">
             <h2 class="text-xl font-medium mb-4 text-secondary">PDFの分割・抽出</h2>
             
-            <div id="split-dropzone" class="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center bg-slate-50 hover:bg-slate-100 transition-colors cursor-pointer mb-6" onclick="document.getElementById('split-input').click()">
-                <span class="material-symbols-outlined text-5xl text-slate-400 mb-2">find_in_page</span>
+            <div id="split-dropzone" class="upload-zone border-2 border-dashed border-slate-300 rounded-xl p-8 text-center bg-slate-50 transition-colors cursor-pointer mb-6" onclick="document.getElementById('split-input').click()">
+                <span class="material-symbols-outlined upload-icon">find_in_page</span>
                 <div class="flex items-center justify-center gap-2">
                     <p id="split-file-name" class="text-slate-600 font-medium">クリックしてPDFファイルを選択</p>
                     <button id="split-clear-btn" class="hidden text-slate-400 hover:text-error transition-colors p-1 rounded-full hover:bg-errorContainer" title="ファイルをクリア" onclick="clearSplitFile(event)">
-                        <span class="material-symbols-outlined text-xl">delete</span>
+                        <span class="material-symbols-outlined icon-button-symbol">delete</span>
                     </button>
                 </div>
                 <p id="split-file-hint" class="text-xs text-slate-400 mt-1">1ファイルのみ</p>
@@ -183,34 +909,34 @@
             </div>
 
             <!-- アクションボタン -->
-            <button id="btn-split-action" class="w-full bg-primary text-white py-3 rounded-lg font-medium shadow-elevation-1 hover:shadow-elevation-2 hover:bg-teal-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2" disabled onclick="processSplit()">
-                <span class="material-symbols-outlined">cut</span>
+            <button id="btn-split-action" class="action-button w-full bg-primary text-white py-3 rounded-lg font-medium shadow-elevation-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2" disabled onclick="processSplit()">
+                <span class="material-symbols-outlined action-icon">cut</span>
                 分割してダウンロード
             </button>
         </section>
 
         <!-- 変換機能セクション -->
-        <section id="section-convert" class="p-6 md:p-8 hidden">
+        <section id="section-convert" class="app-section p-6 md:p-10 hidden">
             <h2 class="text-xl font-medium mb-4 text-secondary">PDFと画像の相互変換</h2>
             
             <!-- 変換モード切替 -->
-            <div class="flex bg-slate-100 p-1 rounded-lg mb-6">
-                <button id="mode-pdf-to-img" class="flex-1 py-2 text-sm font-medium bg-white shadow-sm rounded-md text-primary transition-all" onclick="switchConvertMode('pdf-to-img')">
+            <div class="mode-switch flex bg-slate-100 p-1 rounded-lg mb-6">
+                <button id="mode-pdf-to-img" class="mode-button is-active flex-1 py-2 text-sm font-medium bg-white shadow-sm rounded-md text-primary transition-all" onclick="switchConvertMode('pdf-to-img')">
                     PDF → 画像
                 </button>
-                <button id="mode-img-to-pdf" class="flex-1 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 transition-all" onclick="switchConvertMode('img-to-pdf')">
+                <button id="mode-img-to-pdf" class="mode-button flex-1 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 transition-all" onclick="switchConvertMode('img-to-pdf')">
                     画像 → PDF
                 </button>
             </div>
 
             <!-- モード：PDFから画像へ -->
             <div id="ui-pdf-to-img">
-                <div id="convert-pdf-dropzone" class="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center bg-slate-50 hover:bg-slate-100 transition-colors cursor-pointer mb-6" onclick="document.getElementById('convert-pdf-input').click()">
-                    <span class="material-symbols-outlined text-5xl text-slate-400 mb-2">picture_as_pdf</span>
+                <div id="convert-pdf-dropzone" class="upload-zone border-2 border-dashed border-slate-300 rounded-xl p-8 text-center bg-slate-50 transition-colors cursor-pointer mb-6" onclick="document.getElementById('convert-pdf-input').click()">
+                    <span class="material-symbols-outlined upload-icon">picture_as_pdf</span>
                     <div class="flex items-center justify-center gap-2">
                         <p id="convert-pdf-name" class="text-slate-600 font-medium">クリックしてPDFファイルを選択</p>
                         <button id="convert-pdf-clear-btn" class="hidden text-slate-400 hover:text-error transition-colors p-1 rounded-full hover:bg-errorContainer" title="ファイルをクリア" onclick="clearConvertPdfFile(event)">
-                            <span class="material-symbols-outlined text-xl">delete</span>
+                            <span class="material-symbols-outlined icon-button-symbol">delete</span>
                         </button>
                     </div>
                     <p id="convert-pdf-file-hint" class="text-xs text-slate-400 mt-1">1ファイルのみ</p>
@@ -231,16 +957,16 @@
                     </div>
                 </div>
 
-                <button id="btn-convert-pdf-action" class="w-full bg-primary text-white py-3 rounded-lg font-medium shadow-elevation-1 hover:shadow-elevation-2 hover:bg-teal-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2" disabled onclick="processPdfToImg()">
-                    <span class="material-symbols-outlined">image</span>
+                <button id="btn-convert-pdf-action" class="action-button w-full bg-primary text-white py-3 rounded-lg font-medium shadow-elevation-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2" disabled onclick="processPdfToImg()">
+                    <span class="material-symbols-outlined action-icon">image</span>
                     画像(ZIP)に変換してダウンロード
                 </button>
             </div>
 
             <!-- モード：画像からPDFへ -->
             <div id="ui-img-to-pdf" class="hidden">
-                <div id="convert-img-dropzone" class="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center bg-slate-50 hover:bg-slate-100 transition-colors cursor-pointer mb-6" onclick="document.getElementById('convert-img-input').click()">
-                    <span class="material-symbols-outlined text-5xl text-slate-400 mb-2">add_photo_alternate</span>
+                <div id="convert-img-dropzone" class="upload-zone border-2 border-dashed border-slate-300 rounded-xl p-8 text-center bg-slate-50 transition-colors cursor-pointer mb-6" onclick="document.getElementById('convert-img-input').click()">
+                    <span class="material-symbols-outlined upload-icon">add_photo_alternate</span>
                     <p class="text-slate-600 font-medium">画像(JPG/PNG)を選択またはドロップ</p>
                     <p class="text-xs text-slate-400 mt-1">複数選択可</p>
                     <input type="file" id="convert-img-input" multiple accept="image/jpeg, image/png" class="hidden" onchange="handleConvertImgSelect(event)">
@@ -248,30 +974,30 @@
 
                 <div id="convert-img-list" class="space-y-2 mb-6 empty:hidden"></div>
 
-                <button id="btn-convert-img-action" class="w-full bg-primary text-white py-3 rounded-lg font-medium shadow-elevation-1 hover:shadow-elevation-2 hover:bg-teal-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2" disabled onclick="processImgToPdf()">
-                    <span class="material-symbols-outlined">picture_as_pdf</span>
+                <button id="btn-convert-img-action" class="action-button w-full bg-primary text-white py-3 rounded-lg font-medium shadow-elevation-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2" disabled onclick="processImgToPdf()">
+                    <span class="material-symbols-outlined action-icon">picture_as_pdf</span>
                     PDFに変換してダウンロード
                 </button>
             </div>
         </section>
 
         <!-- ページ番号追加セクション -->
-        <section id="section-pagenum" class="p-6 md:p-8 hidden">
+        <section id="section-pagenum" class="app-section p-6 md:p-10 hidden">
             <h2 class="text-xl font-medium mb-4 text-secondary">PDFにページ番号を追加</h2>
             
-            <div id="pagenum-dropzone" class="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center bg-slate-50 hover:bg-slate-100 transition-colors cursor-pointer mb-6" onclick="document.getElementById('pagenum-input').click()">
-                <span class="material-symbols-outlined text-5xl text-slate-400 mb-2">123</span>
+            <div id="pagenum-dropzone" class="upload-zone border-2 border-dashed border-slate-300 rounded-xl p-8 text-center bg-slate-50 transition-colors cursor-pointer mb-6" onclick="document.getElementById('pagenum-input').click()">
+                <span class="material-symbols-outlined upload-icon">123</span>
                 <div class="flex items-center justify-center gap-2">
                     <p id="pagenum-file-name" class="text-slate-600 font-medium">クリックしてPDFファイルを選択</p>
                     <button id="pagenum-clear-btn" class="hidden text-slate-400 hover:text-error transition-colors p-1 rounded-full hover:bg-errorContainer" title="ファイルをクリア" onclick="clearPagenumFile(event)">
-                        <span class="material-symbols-outlined text-xl">delete</span>
+                        <span class="material-symbols-outlined icon-button-symbol">delete</span>
                     </button>
                 </div>
                 <p id="pagenum-file-hint" class="text-xs text-slate-400 mt-1">1ファイルのみ</p>
                 <input type="file" id="pagenum-input" accept="application/pdf" class="hidden" onchange="handlePagenumFileSelect(event)">
             </div>
 
-            <div id="pagenum-options" class="mb-6 hidden bg-slate-50 p-5 rounded-xl border border-slate-200">
+            <div id="pagenum-options" class="settings-panel mb-6 hidden bg-slate-50 p-5 rounded-xl border border-slate-200">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <!-- 対象ページ (新規追加: 2カラムぶち抜き) -->
                     <div class="md:col-span-2 border-b border-slate-200 pb-4 mb-2">
@@ -349,13 +1075,13 @@
                     </div>
                 </div>
                 <p class="text-xs text-slate-500 mt-4 border-t border-slate-200 pt-3">
-                    <span class="material-symbols-outlined text-[14px] align-text-bottom text-primary">info</span>
+                    <span class="material-symbols-outlined inline-icon">info</span>
                     完全オフライン動作（通信なし）を維持するため、日本語フォントのダウンロードは行わず、PDF標準の軽量な英数字フォントに自動最適化して出力します。
                 </p>
             </div>
 
-            <button id="btn-pagenum-action" class="w-full bg-primary text-white py-3 rounded-lg font-medium shadow-elevation-1 hover:shadow-elevation-2 hover:bg-teal-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2" disabled onclick="processPageNum()">
-                <span class="material-symbols-outlined">pin</span>
+            <button id="btn-pagenum-action" class="action-button w-full bg-primary text-white py-3 rounded-lg font-medium shadow-elevation-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2" disabled onclick="processPageNum()">
+                <span class="material-symbols-outlined action-icon">pin</span>
                 番号を追加してダウンロード
             </button>
         </section>
@@ -363,15 +1089,15 @@
     </main>
 
     <!-- フッター (追加) -->
-    <footer class="mt-8 mb-4 text-center text-sm text-slate-400">
-        &copy; 2026 FTF Engineers All rights reserved.
+    <footer class="footer-copy mt-8 mb-4 text-center text-sm text-slate-400">
+        PDFヘルパー v1.1.0<br>&copy; 2026 FTF Engineers All rights reserved.
     </footer>
 
     <!-- トースト通知 -->
     <div id="toast-container" class="fixed bottom-4 right-4 flex flex-col gap-2 z-50"></div>
 
     <!-- ローディングオーバーレイ -->
-    <div id="loading-overlay" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex-col items-center justify-center z-50">
+    <div id="loading-overlay" class="loading-overlay fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex-col items-center justify-center z-50">
         <div class="spinner mb-4"></div>
         <p class="text-white font-medium" id="loading-text">処理中...</p>
     </div>
@@ -387,6 +1113,57 @@
         let pagenumTotalPages = 0; // 追加: 全ページ数を保持
 
         // --- UI表示制御 ---
+        const THEME_STORAGE_KEY = 'pdf-helper-theme';
+        const themeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+        function getPreferredTheme() {
+            const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+            if (savedTheme === 'light' || savedTheme === 'dark') {
+                return savedTheme;
+            }
+            return themeMediaQuery.matches ? 'dark' : 'light';
+        }
+
+        function applyTheme(theme) {
+            const nextTheme = theme === 'dark' ? 'dark' : 'light';
+            document.documentElement.dataset.theme = nextTheme;
+            document.documentElement.style.colorScheme = nextTheme;
+
+            const toggle = document.getElementById('theme-toggle');
+            const icon = document.getElementById('theme-toggle-icon');
+            const title = document.getElementById('theme-toggle-title');
+            const copy = document.getElementById('theme-toggle-copy');
+            const isDark = nextTheme === 'dark';
+
+            if (toggle) {
+                toggle.setAttribute('aria-pressed', String(isDark));
+                toggle.setAttribute('title', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+            }
+            if (icon) icon.textContent = isDark ? 'light_mode' : 'dark_mode';
+            if (title) title.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+            if (copy) copy.textContent = isDark ? 'Current: Dark' : 'Current: Light';
+        }
+
+        function toggleTheme() {
+            const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+            localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+            applyTheme(nextTheme);
+        }
+
+        function initializeTheme() {
+            applyTheme(getPreferredTheme());
+        }
+
+        if (typeof themeMediaQuery.addEventListener === 'function') {
+            themeMediaQuery.addEventListener('change', (event) => {
+                if (!localStorage.getItem(THEME_STORAGE_KEY)) {
+                    applyTheme(event.matches ? 'dark' : 'light');
+                }
+            });
+        }
+
+        initializeTheme();
+
         function switchTab(tab) {
             const sections = ['merge', 'split', 'convert', 'pagenum'];
             sections.forEach(s => {
@@ -395,10 +1172,12 @@
                 
                 if (s === tab) {
                     sectionEl.classList.remove('hidden');
+                    btnEl.classList.add('is-active');
                     btnEl.classList.replace('text-secondary', 'text-primary');
                     btnEl.classList.replace('border-transparent', 'border-primary');
                 } else {
                     sectionEl.classList.add('hidden');
+                    btnEl.classList.remove('is-active');
                     if (btnEl.classList.contains('text-primary')) {
                         btnEl.classList.replace('text-primary', 'text-secondary');
                         btnEl.classList.replace('border-primary', 'border-transparent');
@@ -410,11 +1189,10 @@
         function showToast(message, type = 'info') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            let bgClass = type === 'error' ? 'bg-error' : (type === 'success' ? 'bg-primary' : 'bg-slate-800');
             let icon = type === 'error' ? 'error' : (type === 'success' ? 'check_circle' : 'info');
 
-            toast.className = `${bgClass} text-white px-4 py-3 rounded-lg shadow-elevation-3 flex items-center gap-3 transform transition-all duration-300 translate-y-full opacity-0 max-w-sm`;
-            toast.innerHTML = `<span class="material-symbols-outlined">${icon}</span><span class="text-sm font-medium">${message}</span>`;
+            toast.className = `toast-card toast-${type} px-4 py-3 rounded-lg shadow-elevation-3 flex items-center gap-3 transform transition-all duration-300 translate-y-full opacity-0 max-w-sm`;
+            toast.innerHTML = `<span class="material-symbols-outlined toast-icon">${icon}</span><span class="text-sm font-medium">${message}</span>`;
             
             container.appendChild(toast);
             setTimeout(() => toast.classList.remove('translate-y-full', 'opacity-0'), 10);
@@ -461,17 +1239,17 @@
             mergeFiles.forEach((file, index) => {
                 const fileSize = (file.size / 1024 / 1024).toFixed(2) + ' MB';
                 const item = document.createElement('div');
-                item.className = 'flex items-center justify-between p-3 bg-white border border-surfaceVariant rounded-lg shadow-sm group';
+                item.className = 'file-row group';
                 item.innerHTML = `
                     <div class="flex items-center gap-3 overflow-hidden">
-                        <span class="material-symbols-outlined text-slate-400">description</span>
+                        <span class="material-symbols-outlined file-icon">description</span>
                         <div class="truncate">
                             <p class="text-sm font-medium text-slate-700 truncate">${file.name}</p>
                             <p class="text-xs text-slate-400">${fileSize}</p>
                         </div>
                     </div>
                     <button onclick="removeMergeFile(${index})" class="text-slate-400 hover:text-error transition-colors p-1 rounded-full hover:bg-errorContainer" title="削除">
-                        <span class="material-symbols-outlined text-xl">close</span>
+                        <span class="material-symbols-outlined icon-button-symbol">close</span>
                     </button>
                 `;
                 listElement.appendChild(item);
@@ -579,14 +1357,14 @@
                     canvas.width = viewport.width;
                     canvas.height = viewport.height;
                     // デフォルトは非選択状態（細い透明ボーダー）
-                    canvas.className = 'w-full h-auto object-cover rounded shadow-sm border-2 border-transparent transition-all duration-200';
+                    canvas.className = 'w-full h-auto object-cover transition-all duration-200';
 
                     // 描画
                     await page.render({ canvasContext: ctx, viewport: viewport }).promise;
 
                     // ラッパー要素（クリック領域）
                     const wrapper = document.createElement('div');
-                    wrapper.className = 'thumbnail-item relative cursor-pointer flex flex-col items-center group';
+                    wrapper.className = 'thumbnail-item relative cursor-pointer flex flex-col items-center gap-1.5 group';
                     wrapper.dataset.pageIndex = i - 1; // 0-indexed for pdf-lib
 
                     // ページ番号ラベル
@@ -597,7 +1375,7 @@
                     // 右上のチェックアイコン
                     const checkIcon = document.createElement('span');
                     // cssのクラスでマテリアルアイコンを指定。初期状態は透明
-                    checkIcon.className = 'material-symbols-outlined check-icon absolute -top-2 -right-2 text-white bg-primary rounded-full text-sm p-0.5 opacity-0 transition-opacity duration-200 shadow-md';
+                    checkIcon.className = 'material-symbols-outlined check-icon absolute -top-2 -right-2 text-white bg-primary rounded-full text-sm p-0.5';
                     checkIcon.style.fontSize = '14px';
                     checkIcon.innerText = 'check';
 
@@ -619,21 +1397,7 @@
 
         // サムネイルの選択状態を切り替える
         function toggleThumbnailSelection(wrapper, canvas, checkIcon) {
-            const isSelected = wrapper.classList.toggle('is-selected');
-            
-            if (isSelected) {
-                // 選択状態のスタイル適用
-                canvas.classList.remove('border-transparent');
-                canvas.classList.add('border-primary', 'ring-2', 'ring-primary', 'ring-opacity-50');
-                checkIcon.classList.remove('opacity-0');
-                checkIcon.classList.add('opacity-100');
-            } else {
-                // 非選択状態に戻す
-                canvas.classList.add('border-transparent');
-                canvas.classList.remove('border-primary', 'ring-2', 'ring-primary', 'ring-opacity-50');
-                checkIcon.classList.add('opacity-0');
-                checkIcon.classList.remove('opacity-100');
-            }
+            wrapper.classList.toggle('is-selected');
             updateExtractButtonState();
         }
 
@@ -641,22 +1405,7 @@
         function selectAllThumbnails(select) {
             const items = document.querySelectorAll('.thumbnail-item');
             items.forEach(wrapper => {
-                const canvas = wrapper.querySelector('canvas');
-                const checkIcon = wrapper.querySelector('.check-icon');
-                
-                if (select && !wrapper.classList.contains('is-selected')) {
-                    wrapper.classList.add('is-selected');
-                    canvas.classList.remove('border-transparent');
-                    canvas.classList.add('border-primary', 'ring-2', 'ring-primary', 'ring-opacity-50');
-                    checkIcon.classList.remove('opacity-0');
-                    checkIcon.classList.add('opacity-100');
-                } else if (!select && wrapper.classList.contains('is-selected')) {
-                    wrapper.classList.remove('is-selected');
-                    canvas.classList.add('border-transparent');
-                    canvas.classList.remove('border-primary', 'ring-2', 'ring-primary', 'ring-opacity-50');
-                    checkIcon.classList.add('opacity-0');
-                    checkIcon.classList.remove('opacity-100');
-                }
+                wrapper.classList.toggle('is-selected', select);
             });
             updateExtractButtonState();
         }
@@ -770,15 +1519,17 @@
             const btnImgToPdf = document.getElementById('mode-img-to-pdf');
             const uiPdfToImg = document.getElementById('ui-pdf-to-img');
             const uiImgToPdf = document.getElementById('ui-img-to-pdf');
+            const activeClass = 'mode-button is-active flex-1 py-2 text-sm font-medium bg-white shadow-sm rounded-md text-primary transition-all';
+            const inactiveClass = 'mode-button flex-1 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 transition-all';
 
             if (mode === 'pdf-to-img') {
-                btnPdfToImg.className = 'flex-1 py-2 text-sm font-medium bg-white shadow-sm rounded-md text-primary transition-all';
-                btnImgToPdf.className = 'flex-1 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 transition-all';
+                btnPdfToImg.className = activeClass;
+                btnImgToPdf.className = inactiveClass;
                 uiPdfToImg.classList.remove('hidden');
                 uiImgToPdf.classList.add('hidden');
             } else {
-                btnImgToPdf.className = 'flex-1 py-2 text-sm font-medium bg-white shadow-sm rounded-md text-primary transition-all';
-                btnPdfToImg.className = 'flex-1 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 transition-all';
+                btnImgToPdf.className = activeClass;
+                btnPdfToImg.className = inactiveClass;
                 uiImgToPdf.classList.remove('hidden');
                 uiPdfToImg.classList.add('hidden');
             }
@@ -898,17 +1649,17 @@
             convertImgFiles.forEach((file, index) => {
                 const fileSize = (file.size / 1024 / 1024).toFixed(2) + ' MB';
                 const item = document.createElement('div');
-                item.className = 'flex items-center justify-between p-3 bg-white border border-surfaceVariant rounded-lg shadow-sm group';
+                item.className = 'file-row group';
                 item.innerHTML = `
                     <div class="flex items-center gap-3 overflow-hidden">
-                        <span class="material-symbols-outlined text-slate-400">image</span>
+                        <span class="material-symbols-outlined file-icon">image</span>
                         <div class="truncate">
                             <p class="text-sm font-medium text-slate-700 truncate">${file.name}</p>
                             <p class="text-xs text-slate-400">${fileSize}</p>
                         </div>
                     </div>
                     <button onclick="removeConvertImgFile(${index})" class="text-slate-400 hover:text-error transition-colors p-1 rounded-full hover:bg-errorContainer" title="削除">
-                        <span class="material-symbols-outlined text-xl">close</span>
+                        <span class="material-symbols-outlined icon-button-symbol">close</span>
                     </button>
                 `;
                 listElement.appendChild(item);
