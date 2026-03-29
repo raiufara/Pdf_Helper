@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">MinimaPdf light app icon</title>
+  <desc id="desc">A document icon with three conversion arrows on a light rounded square.</desc>
+  <defs>
+    <linearGradient id="panelFillLight" x1="160" y1="136" x2="860" y2="888" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F8FCFE"/>
+      <stop offset="0.5" stop-color="#EEF5F7"/>
+      <stop offset="1" stop-color="#E5EEF1"/>
+    </linearGradient>
+    <linearGradient id="panelStrokeLight" x1="118" y1="118" x2="906" y2="906" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8AC8C1"/>
+      <stop offset="0.55" stop-color="#52A89D"/>
+      <stop offset="1" stop-color="#237A73"/>
+    </linearGradient>
+    <radialGradient id="centerGlowLight" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(512 508) rotate(90) scale(292)">
+      <stop offset="0" stop-color="#BDF5EC" stop-opacity="0.88"/>
+      <stop offset="0.62" stop-color="#BDF5EC" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lineTealLight" x1="312" y1="246" x2="728" y2="796" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4AAFA4"/>
+      <stop offset="0.54" stop-color="#2E958A"/>
+      <stop offset="1" stop-color="#14655E"/>
+    </linearGradient>
+    <linearGradient id="arrowFillLight" x1="214" y1="802" x2="784" y2="310" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#34B1A6"/>
+      <stop offset="0.5" stop-color="#248E86"/>
+      <stop offset="1" stop-color="#1BA89C"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="96" y="96" width="832" height="832" rx="172" fill="url(#panelFillLight)"/>
+  <rect x="96" y="96" width="832" height="832" rx="172" stroke="url(#panelStrokeLight)" stroke-width="10"/>
+  <rect x="118" y="118" width="788" height="788" rx="150" stroke="#FFFFFF" stroke-opacity="0.72" stroke-width="3"/>
+  <circle cx="512" cy="512" r="264" fill="url(#centerGlowLight)"/>
+
+  <path
+    d="M378 248H548L676 376V772C676 789.673 661.673 804 644 804H378C360.327 804 346 789.673 346 772V280C346 262.327 360.327 248 378 248Z"
+    stroke="url(#lineTealLight)"
+    stroke-width="34"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M548 248V340C548 357.673 562.327 372 580 372H676"
+    stroke="url(#lineTealLight)"
+    stroke-width="34"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <path d="M216 548H404V492H468L354 614L240 492H304V548H216Z" fill="url(#arrowFillLight)"/>
+  <path d="M476 812V628H420L512 500L604 628H548V812H476Z" fill="url(#arrowFillLight)"/>
+  <path d="M470 646L676 440L634 398L806 356L764 528L722 486L516 692L470 646Z" fill="url(#arrowFillLight)"/>
+</svg>

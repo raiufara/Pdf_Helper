@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">MinimaPdf icon proposal C refined</title>
+  <desc id="desc">Refined layer-style icon with stacked sheets, a split seam, and transformation arrows.</desc>
+  <defs>
+    <linearGradient id="bgCr" x1="150" y1="122" x2="878" y2="904" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#172334"/>
+      <stop offset="0.5" stop-color="#101827"/>
+      <stop offset="1" stop-color="#0A1120"/>
+    </linearGradient>
+    <linearGradient id="strokeCr" x1="96" y1="96" x2="928" y2="928" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#11776E"/>
+      <stop offset="0.56" stop-color="#5BF3E0"/>
+      <stop offset="1" stop-color="#20AA9D"/>
+    </linearGradient>
+    <radialGradient id="glowCr" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(512 514) rotate(90) scale(294)">
+      <stop offset="0" stop-color="#4CF2DC" stop-opacity="0.24"/>
+      <stop offset="0.58" stop-color="#4CF2DC" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#4CF2DC" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lineCr" x1="284" y1="234" x2="782" y2="812" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7EFFF2"/>
+      <stop offset="0.48" stop-color="#47EAD3"/>
+      <stop offset="1" stop-color="#23B8AB"/>
+    </linearGradient>
+    <linearGradient id="fillCr" x1="210" y1="808" x2="816" y2="320" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7DFFF2"/>
+      <stop offset="0.5" stop-color="#4CF1DC"/>
+      <stop offset="1" stop-color="#29CABA"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="96" y="96" width="832" height="832" rx="176" fill="url(#bgCr)"/>
+  <rect x="96" y="96" width="832" height="832" rx="176" stroke="url(#strokeCr)" stroke-width="12"/>
+  <rect x="118" y="118" width="788" height="788" rx="156" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="2"/>
+  <circle cx="512" cy="512" r="272" fill="url(#glowCr)"/>
+
+  <path
+    d="M404 224H648L772 348V634"
+    stroke="url(#lineCr)"
+    stroke-opacity="0.26"
+    stroke-width="18"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M360 264H604L730 390V680"
+    stroke="url(#lineCr)"
+    stroke-opacity="0.48"
+    stroke-width="22"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <path
+    d="M316 308H566L692 434V716C692 738.091 674.091 756 652 756H316C293.909 756 276 738.091 276 716V348C276 325.909 293.909 308 316 308Z"
+    stroke="url(#lineCr)"
+    stroke-width="28"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M566 308V402C566 419.673 580.327 434 598 434H692"
+    stroke="url(#lineCr)"
+    stroke-width="28"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <path
+    d="M468 454L430 530L468 606"
+    stroke="url(#lineCr)"
+    stroke-width="28"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M556 454L518 530L556 606"
+    stroke="url(#lineCr)"
+    stroke-width="28"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <path
+    d="M202 602H354V554H422L322 674L222 554H290V602H202Z"
+    fill="url(#fillCr)"
+  />
+  <path
+    d="M488 828V664H438L512 560L586 664H536V828H488Z"
+    fill="url(#fillCr)"
+  />
+  <path
+    d="M520 648L674 494H636L704 398L800 430L764 466L610 620L520 648Z"
+    fill="url(#fillCr)"
+  />
+
+  <path
+    d="M364 414H524"
+    stroke="#E6FFF9"
+    stroke-opacity="0.16"
+    stroke-width="16"
+    stroke-linecap="round"
+  />
+  <path
+    d="M364 686H588"
+    stroke="#E6FFF9"
+    stroke-opacity="0.12"
+    stroke-width="16"
+    stroke-linecap="round"
+  />
+</svg>

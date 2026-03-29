@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MinimaPdf - Simple PDF Tools</title>
+    <link rel="icon" type="image/svg+xml" href="assets/icons/minimapdf-app-icon.svg?v=20260329d">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -300,6 +301,14 @@
             border: 1px solid var(--color-outline);
             font-size: 2rem !important;
             font-variation-settings: 'FILL' 1, 'wght' 280, 'GRAD' 0, 'opsz' 48;
+        }
+
+        .hero-logo {
+            width: 4.8rem;
+            height: 4.8rem;
+            display: block;
+            flex-shrink: 0;
+            filter: drop-shadow(0 18px 32px rgba(12, 23, 38, 0.16));
         }
 
         .theme-toggle {
@@ -733,6 +742,11 @@
         }
 
         @media (max-width: 760px) {
+            .hero-logo {
+                width: 4.2rem;
+                height: 4.2rem;
+            }
+
             .theme-toggle {
                 width: 100%;
                 justify-content: center;
@@ -770,6 +784,11 @@
         }
 
         @media (max-width: 560px) {
+            .hero-logo {
+                width: 3.75rem;
+                height: 3.75rem;
+            }
+
             .tab-strip {
                 gap: 0.3rem;
                 padding: 0.48rem;
@@ -801,7 +820,7 @@
             Simple PDF Tools
         </div>
         <h1 class="header-title font-bold mb-2 flex items-center justify-center gap-3">
-            <span class="material-symbols-outlined hero-icon">picture_as_pdf</span>
+            <img src="assets/icons/minimapdf-app-icon.svg?v=20260329d" alt="" class="hero-logo">
             MinimaPdf
         </h1>
         <div class="mt-6 flex justify-center">

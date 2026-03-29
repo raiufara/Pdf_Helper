@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">MinimaPdf icon proposal B</title>
+  <desc id="desc">Cycle-style icon with split and merge documents connected by transformation arrows.</desc>
+  <defs>
+    <linearGradient id="bgB" x1="156" y1="122" x2="876" y2="904" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#162130"/>
+      <stop offset="0.5" stop-color="#121A28"/>
+      <stop offset="1" stop-color="#0A1120"/>
+    </linearGradient>
+    <linearGradient id="strokeB" x1="96" y1="96" x2="928" y2="928" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#13786F"/>
+      <stop offset="0.56" stop-color="#5CF3E0"/>
+      <stop offset="1" stop-color="#1DAA9C"/>
+    </linearGradient>
+    <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(512 512) rotate(90) scale(306)">
+      <stop offset="0" stop-color="#4AF2DB" stop-opacity="0.22"/>
+      <stop offset="0.62" stop-color="#4AF2DB" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#4AF2DB" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lineB" x1="250" y1="260" x2="764" y2="782" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#78FFF1"/>
+      <stop offset="0.52" stop-color="#42E9D1"/>
+      <stop offset="1" stop-color="#23B8AB"/>
+    </linearGradient>
+    <linearGradient id="fillB" x1="214" y1="780" x2="810" y2="334" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#78FFF1"/>
+      <stop offset="0.5" stop-color="#48F2DC"/>
+      <stop offset="1" stop-color="#25C9B8"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="96" y="96" width="832" height="832" rx="176" fill="url(#bgB)"/>
+  <rect x="96" y="96" width="832" height="832" rx="176" stroke="url(#strokeB)" stroke-width="12"/>
+  <rect x="118" y="118" width="788" height="788" rx="156" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="2"/>
+  <circle cx="512" cy="512" r="270" fill="url(#glowB)"/>
+
+  <path
+    d="M246 338C320 270 420 234 522 238C598 242 672 268 736 320"
+    stroke="url(#lineB)"
+    stroke-width="26"
+    stroke-linecap="round"
+  />
+  <path d="M704 280L792 310L738 388L704 280Z" fill="url(#fillB)"/>
+  <path
+    d="M778 676C706 752 606 792 500 788C422 784 350 758 286 706"
+    stroke="url(#lineB)"
+    stroke-width="26"
+    stroke-linecap="round"
+  />
+  <path d="M320 746L232 714L288 638L320 746Z" fill="url(#fillB)"/>
+
+  <path
+    d="M292 354H434L528 448V680C528 702.091 510.091 720 488 720H292C269.909 720 252 702.091 252 680V394C252 371.909 269.909 354 292 354Z"
+    stroke="url(#lineB)"
+    stroke-width="28"
+    stroke-linejoin="round"
+  />
+  <path d="M434 354V416C434 433.673 448.327 448 466 448H528" stroke="url(#lineB)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M346 446L390 512L346 578" stroke="url(#lineB)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M414 446L458 512L414 578" stroke="url(#lineB)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <path
+    d="M598 334H738L820 416V694C820 716.091 802.091 734 780 734H598C575.909 734 558 716.091 558 694V374C558 351.909 575.909 334 598 334Z"
+    stroke="url(#lineB)"
+    stroke-width="28"
+    stroke-linejoin="round"
+  />
+  <path d="M738 334V386C738 403.673 752.327 418 770 418H820" stroke="url(#lineB)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <path
+    d="M636 520H740V476L798 548L740 620V576H636V520Z"
+    fill="url(#fillB)"
+  />
+  <rect x="590" y="382" width="220" height="310" rx="28" stroke="#DFFFFA" stroke-opacity="0.16" stroke-width="10"/>
+</svg>
