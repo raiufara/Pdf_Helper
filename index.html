@@ -561,6 +561,40 @@
             box-shadow: var(--shadow-soft);
         }
 
+        .file-row-main {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .file-row-meta {
+            min-width: 0;
+        }
+
+        .file-row-order {
+            display: inline-grid;
+            place-items: center;
+            width: 2.1rem;
+            height: 2.1rem;
+            border-radius: 0.85rem;
+            background: linear-gradient(135deg, rgba(15, 118, 110, 0.15), rgba(15, 118, 110, 0.03));
+            color: var(--color-primary);
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            flex-shrink: 0;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+        }
+
+        .file-row-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            flex-shrink: 0;
+        }
+
         .file-icon {
             width: 2.1rem;
             height: 2.1rem;
@@ -576,6 +610,250 @@
             border-radius: 9999px;
             color: currentColor;
             font-variation-settings: 'FILL' 1, 'wght' 260, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .icon-ghost-button {
+            display: inline-grid;
+            place-items: center;
+            width: 2.1rem;
+            height: 2.1rem;
+            border: 0;
+            border-radius: 9999px;
+            background: transparent;
+            color: var(--color-text-soft);
+            transition: transform 0.18s ease, background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .icon-ghost-button:hover:not(:disabled) {
+            transform: translateY(-1px);
+            background: var(--color-surface-lowest);
+            color: var(--color-primary);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .icon-ghost-button:disabled {
+            opacity: 0.34;
+            cursor: not-allowed;
+        }
+
+        .reorder-stack {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.28rem;
+            border-radius: 9999px;
+            background: var(--color-ghost);
+            border: 1px solid var(--color-outline);
+        }
+
+        .list-panel {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-radius: 1.5rem;
+            border: 1px solid var(--color-outline);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), transparent), var(--color-surface);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .list-panel-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .list-panel-eyebrow {
+            display: inline-block;
+            margin-bottom: 0.3rem;
+            color: var(--color-primary);
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .list-panel-copy {
+            color: var(--color-text-muted);
+            font-size: 0.84rem;
+            line-height: 1.55;
+        }
+
+        .choice-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.85rem;
+        }
+
+        .choice-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+            padding: 1rem 1.05rem;
+            border-radius: 1.25rem;
+            border: 1px solid var(--color-outline);
+            background: var(--color-surface-lowest);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .choice-card:hover {
+            transform: translateY(-1px);
+            border-color: var(--color-outline-strong);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .choice-card.is-selected {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 4px var(--color-primary-glow), var(--shadow-soft);
+        }
+
+        .choice-card input {
+            margin-top: 0.35rem;
+            flex-shrink: 0;
+        }
+
+        .choice-card-icon {
+            display: inline-grid;
+            place-items: center;
+            width: 2.4rem;
+            height: 2.4rem;
+            border-radius: 0.95rem;
+            background: linear-gradient(135deg, rgba(15, 118, 110, 0.16), rgba(15, 118, 110, 0.03));
+            color: var(--color-primary);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+            flex-shrink: 0;
+            font-variation-settings: 'FILL' 1, 'wght' 260, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .choice-card-copy strong {
+            display: block;
+            color: var(--color-text);
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 0.22rem;
+        }
+
+        .choice-card-copy span {
+            display: block;
+            color: var(--color-text-muted);
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+
+        .color-preset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(122px, 1fr));
+            gap: 0.65rem;
+        }
+
+        .color-swatch-option {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            width: 100%;
+            padding: 0.75rem 0.85rem;
+            border: 1px solid var(--color-outline);
+            border-radius: 1rem;
+            background: var(--color-surface-lowest);
+            color: var(--color-text);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+        }
+
+        .color-swatch-option:hover {
+            transform: translateY(-1px);
+            border-color: var(--color-outline-strong);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .color-swatch-option.is-selected {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 4px var(--color-primary-glow), var(--shadow-soft);
+        }
+
+        .color-swatch-dot {
+            width: 1rem;
+            height: 1rem;
+            border-radius: 9999px;
+            border: 2px solid rgba(255, 255, 255, 0.72);
+            box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.12);
+            flex-shrink: 0;
+        }
+
+        .custom-color-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.85rem 1rem;
+            border-radius: 1rem;
+            border: 1px solid var(--color-outline);
+            background: var(--color-surface-lowest);
+            transition: border-color 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .custom-color-card.is-selected {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 4px var(--color-primary-glow), var(--shadow-soft);
+        }
+
+        .notice-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.9rem;
+            padding: 1rem 1.05rem;
+            border-radius: 1.2rem;
+            border: 1px solid var(--color-outline);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), transparent), var(--color-surface-lowest);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+        }
+
+        .notice-card-icon {
+            display: inline-grid;
+            place-items: center;
+            width: 2.35rem;
+            height: 2.35rem;
+            border-radius: 0.95rem;
+            background: linear-gradient(135deg, rgba(15, 118, 110, 0.16), rgba(15, 118, 110, 0.03));
+            color: var(--color-primary);
+            flex-shrink: 0;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24);
+            font-variation-settings: 'FILL' 1, 'wght' 260, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .notice-card strong {
+            display: block;
+            margin-bottom: 0.22rem;
+            color: var(--color-text);
+            font-size: 0.92rem;
+            font-weight: 700;
+        }
+
+        .notice-card p {
+            color: var(--color-text-muted);
+            font-size: 0.82rem;
+            line-height: 1.58;
+        }
+
+        .color-picker-input {
+            width: 3rem;
+            height: 2.35rem;
+            padding: 0;
+            border: 0;
+            border-radius: 0.85rem;
+            background: transparent !important;
+            box-shadow: none !important;
+            cursor: pointer;
+        }
+
+        .color-picker-input::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+
+        .color-picker-input::-webkit-color-swatch {
+            border: 0;
+            border-radius: 0.85rem;
+            box-shadow: var(--shadow-soft);
         }
 
         .thumbnail-item canvas {
@@ -747,6 +1025,25 @@
                 height: 4.2rem;
             }
 
+            .choice-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .list-panel-head,
+            .custom-color-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .file-row {
+                align-items: flex-start;
+            }
+
+            .file-row-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+
             .theme-toggle {
                 width: 100%;
                 justify-content: center;
@@ -787,6 +1084,18 @@
             .hero-logo {
                 width: 3.75rem;
                 height: 3.75rem;
+            }
+
+            .file-row {
+                padding: 0.82rem 0.85rem;
+            }
+
+            .file-row-main {
+                gap: 0.72rem;
+            }
+
+            .reorder-stack {
+                gap: 0.2rem;
             }
 
             .tab-strip {
@@ -868,7 +1177,15 @@
                 <input type="file" id="merge-input" multiple accept="application/pdf" class="hidden" onchange="handleMergeFilesSelect(event)">
             </div>
 
-            <div id="merge-file-list" class="space-y-2 mb-6 empty:hidden"></div>
+            <div id="merge-file-panel" class="list-panel hidden">
+                <div class="list-panel-head">
+                    <div>
+                        <span class="list-panel-eyebrow">File Order</span>
+                        <p id="merge-order-copy" class="list-panel-copy">上から順に結合されます。↑↓で並び順を調整できます。</p>
+                    </div>
+                </div>
+                <div id="merge-file-list" class="space-y-2"></div>
+            </div>
 
             <button id="btn-merge-action" class="action-button w-full bg-primary text-white py-3 rounded-lg font-medium shadow-elevation-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2" disabled onclick="processMerge()">
                 <span class="material-symbols-outlined action-icon">merge</span>
@@ -912,7 +1229,23 @@
                     </div>
                 </label>
 
+                <div id="split-zip-notice" class="notice-card mt-4 hidden">
+                    <span class="material-symbols-outlined notice-card-icon">verified_user</span>
+                    <div>
+                        <strong>WindowsでZIP出力を開くときの注意</strong>
+                        <p>ZIP内のPDFは直接開かず、まず「すべて展開」してください。警告が出る場合は ZIP のプロパティで「許可する」にチェックしてから展開すると開きやすくなります。</p>
+                    </div>
+                </div>
+
                 <!-- プレビューと選択UI (抽出モード選択時のみ表示) -->
+                <div id="split-zip-notice-v2" class="notice-card mt-4">
+                    <span class="material-symbols-outlined notice-card-icon">verified_user</span>
+                    <div>
+                        <strong>WindowsでZIP出力を開くときの注意</strong>
+                        <p>ダウンロードフォルダ上では、ZIP内のPDFがWindowsの保護対象になって開けない場合があります。開けないときは ZIP をデスクトップや空の作業フォルダへ移動してから展開してください。過去に展開した同名PDFが残っている場合は、削除してから再展開すると改善することがあります。</p>
+                    </div>
+                </div>
+
                 <div id="extract-ui-container" class="hidden mt-4 pt-4 border-t border-slate-200">
                     <div class="flex justify-between items-center mb-2">
                         <span class="text-sm font-medium text-slate-700">抽出するページをクリックして選択:</span>
@@ -991,11 +1324,62 @@
                     <input type="file" id="convert-img-input" multiple accept="image/jpeg, image/png" class="hidden" onchange="handleConvertImgSelect(event)">
                 </div>
 
-                <div id="convert-img-list" class="space-y-2 mb-6 empty:hidden"></div>
+                <div id="convert-img-options" class="settings-panel mb-6 p-5">
+                    <div class="list-panel-head">
+                        <div>
+                            <span class="list-panel-eyebrow">Output Mode</span>
+                            <p class="list-panel-copy">結合して1冊のPDFにするか、画像ごとに個別PDF化してZIPにまとめるかを選べます。</p>
+                        </div>
+                    </div>
+                    <div class="choice-grid">
+                        <label class="choice-card is-selected" data-group="img_to_pdf_output" data-value="merged">
+                            <input type="radio" name="img_to_pdf_output" value="merged" checked class="w-4 h-4 text-primary focus:ring-primary accent-primary" onchange="updateImgToPdfModeUI()">
+                            <span class="material-symbols-outlined choice-card-icon">merge</span>
+                            <span class="choice-card-copy">
+                                <strong>1つのPDFに結合</strong>
+                                <span>画像の並び順をそのままページ順にして、1冊のPDFとして出力します。</span>
+                            </span>
+                        </label>
+                        <label class="choice-card" data-group="img_to_pdf_output" data-value="split">
+                            <input type="radio" name="img_to_pdf_output" value="split" class="w-4 h-4 text-primary focus:ring-primary accent-primary" onchange="updateImgToPdfModeUI()">
+                            <span class="material-symbols-outlined choice-card-icon">folder_zip</span>
+                            <span class="choice-card-copy">
+                                <strong>個別PDFをZIP化</strong>
+                                <span>画像ごとに1つのPDFを作り、順番を保ったままZIPでまとめて出力します。</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="convert-img-file-panel" class="list-panel hidden">
+                    <div class="list-panel-head">
+                        <div>
+                            <span class="list-panel-eyebrow">Page Order</span>
+                            <p id="convert-img-order-copy" class="list-panel-copy">上から順にPDFのページになります。↑↓で並び順を調整できます。</p>
+                        </div>
+                    </div>
+                    <div id="convert-img-list" class="space-y-2"></div>
+                </div>
+
+                <div id="convert-img-zip-notice" class="notice-card hidden mb-6 hidden">
+                    <span class="material-symbols-outlined notice-card-icon">shield_lock</span>
+                    <div>
+                        <strong>ZIP出力時の開き方</strong>
+                        <p>個別PDFをZIPで出力した場合は、ZIPの中のPDFを直接開かずに「すべて展開」してから開いてください。Windowsで警告が出るときは ZIP のプロパティで「許可する」にチェックするとスムーズです。</p>
+                    </div>
+                </div>
+
+                <div id="convert-img-zip-notice-v2" class="notice-card hidden mb-6">
+                    <span class="material-symbols-outlined notice-card-icon">shield_lock</span>
+                    <div>
+                        <strong>ZIP出力時の開き方</strong>
+                        <p>画像を個別PDFにしてZIP出力した場合も、ダウンロードフォルダ上では開きにくいことがあります。ZIP はデスクトップや空の作業フォルダへ移動してから展開してください。既存の展開済みPDFが残っている場合は、削除してからやり直してください。</p>
+                    </div>
+                </div>
 
                 <button id="btn-convert-img-action" class="action-button w-full bg-primary text-white py-3 rounded-lg font-medium shadow-elevation-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2" disabled onclick="processImgToPdf()">
                     <span class="material-symbols-outlined action-icon">picture_as_pdf</span>
-                    PDFに変換してダウンロード
+                    <span id="btn-convert-img-action-label">PDFに結合してダウンロード</span>
                 </button>
             </div>
         </section>
@@ -1078,6 +1462,52 @@
                         </select>
                     </div>
 
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-slate-700 mb-2">文字色</label>
+                        <div class="color-preset-grid mb-3">
+                            <button type="button" class="color-swatch-option is-selected" data-color="#4B5563" onclick="setPagenumColor('#4B5563')">
+                                <span class="color-swatch-dot" style="background:#4B5563;"></span>
+                                <span class="text-sm font-medium">標準グレー</span>
+                            </button>
+                            <button type="button" class="color-swatch-option" data-color="#111827" onclick="setPagenumColor('#111827')">
+                                <span class="color-swatch-dot" style="background:#111827;"></span>
+                                <span class="text-sm font-medium">ブラック</span>
+                            </button>
+                            <button type="button" class="color-swatch-option" data-color="#0F766E" onclick="setPagenumColor('#0F766E')">
+                                <span class="color-swatch-dot" style="background:#0F766E;"></span>
+                                <span class="text-sm font-medium">ティール</span>
+                            </button>
+                            <button type="button" class="color-swatch-option" data-color="#2563EB" onclick="setPagenumColor('#2563EB')">
+                                <span class="color-swatch-dot" style="background:#2563EB;"></span>
+                                <span class="text-sm font-medium">ブルー</span>
+                            </button>
+                            <button type="button" class="color-swatch-option" data-color="#DC2626" onclick="setPagenumColor('#DC2626')">
+                                <span class="color-swatch-dot" style="background:#DC2626;"></span>
+                                <span class="text-sm font-medium">レッド</span>
+                            </button>
+                            <button type="button" class="color-swatch-option" data-color="#FFFFFF" onclick="setPagenumColor('#FFFFFF')">
+                                <span class="color-swatch-dot" style="background:#FFFFFF;"></span>
+                                <span class="text-sm font-medium">ホワイト</span>
+                            </button>
+                        </div>
+
+                        <div id="pagenum-custom-color-card" class="custom-color-card">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <span id="pagenum-custom-color-swatch" class="color-swatch-dot" style="background:#4B5563;"></span>
+                                <div class="min-w-0">
+                                    <span class="block text-sm font-medium text-slate-700">カスタム色</span>
+                                    <span class="block text-xs text-slate-500">右側のカラーピッカーをクリックして、お好きな色にカスタマイズしてください。</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span id="pagenum-color-code" class="text-xs font-semibold text-slate-500">#4B5563</span>
+                                <input type="color" id="pagenum-custom-color" class="color-picker-input" value="#4B5563" onchange="setPagenumColor(this.value, true)">
+                            </div>
+                            <input type="hidden" id="pagenum-color" value="#4B5563">
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2">※白など薄い色は、元PDFの背景色によって見えにくい場合があります。</p>
+                    </div>
+
                     <!-- 書式 -->
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-2">書式</label>
@@ -1109,7 +1539,7 @@
 
     <!-- フッター (追加) -->
     <footer class="footer-copy mt-8 mb-4 text-center text-sm text-slate-400">
-        MinimaPdf - Simple PDF Tools v1.1.1<br>&copy; 2026 FTF Engineers All rights reserved.
+        MinimaPdf - Simple PDF Tools v1.2.0<br>&copy; 2026 FTF Engineers All rights reserved.
     </footer>
 
     <!-- トースト通知 -->
@@ -1205,7 +1635,7 @@
             });
         }
 
-        function showToast(message, type = 'info') {
+        function showToast(message, type = 'info', duration = 3000) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             let icon = type === 'error' ? 'error' : (type === 'success' ? 'check_circle' : 'info');
@@ -1218,7 +1648,7 @@
             setTimeout(() => {
                 toast.classList.add('translate-y-full', 'opacity-0');
                 setTimeout(() => toast.remove(), 300);
-            }, 3000);
+            }, duration);
         }
 
         function showLoading(text = "処理中...") {
@@ -1232,6 +1662,161 @@
             const overlay = document.getElementById('loading-overlay');
             overlay.classList.add('hidden');
             overlay.classList.remove('flex');
+        }
+
+        function moveArrayItem(items, fromIndex, direction) {
+            const toIndex = fromIndex + direction;
+            if (toIndex < 0 || toIndex >= items.length) return;
+            [items[fromIndex], items[toIndex]] = [items[toIndex], items[fromIndex]];
+        }
+
+        function getFileBaseName(filename) {
+            return filename.replace(/\.[^.]+$/, '');
+        }
+
+        function createOrderedFileRow({
+            file,
+            index,
+            total,
+            icon,
+            onMove,
+            onRemove,
+        }) {
+            const fileSize = (file.size / 1024 / 1024).toFixed(2) + ' MB';
+            const item = document.createElement('div');
+            item.className = 'file-row group';
+            item.innerHTML = `
+                <div class="file-row-main">
+                    <span class="file-row-order">${String(index + 1).padStart(2, '0')}</span>
+                    <span class="material-symbols-outlined file-icon">${icon}</span>
+                    <div class="file-row-meta truncate">
+                        <p class="text-sm font-medium text-slate-700 truncate">${file.name}</p>
+                        <p class="text-xs text-slate-400">${fileSize}</p>
+                    </div>
+                </div>
+                <div class="file-row-actions">
+                    <div class="reorder-stack" aria-label="並び順を変更">
+                        <button type="button" class="icon-ghost-button" onclick="${onMove}(${index}, -1)" title="上へ移動" ${index === 0 ? 'disabled' : ''}>
+                            <span class="material-symbols-outlined icon-button-symbol">keyboard_arrow_up</span>
+                        </button>
+                        <button type="button" class="icon-ghost-button" onclick="${onMove}(${index}, 1)" title="下へ移動" ${index === total - 1 ? 'disabled' : ''}>
+                            <span class="material-symbols-outlined icon-button-symbol">keyboard_arrow_down</span>
+                        </button>
+                    </div>
+                    <button type="button" onclick="${onRemove}(${index})" class="text-slate-400 hover:text-error transition-colors p-1 rounded-full hover:bg-errorContainer" title="削除">
+                        <span class="material-symbols-outlined icon-button-symbol">close</span>
+                    </button>
+                </div>
+            `;
+            return item;
+        }
+
+        function getImgToPdfOutputMode() {
+            return document.querySelector('input[name="img_to_pdf_output"]:checked')?.value || 'merged';
+        }
+
+        function showZipAftercareToast() {
+            showToast('ZIP内のPDFは直接開かず「すべて展開」してください。警告が出る場合はZIPのプロパティで「許可する」にチェックしてから展開してください。', 'info', 5600);
+        }
+
+        function updateImgToPdfModeUI() {
+            const mode = getImgToPdfOutputMode();
+            document.querySelectorAll('[data-group="img_to_pdf_output"]').forEach((card) => {
+                card.classList.toggle('is-selected', card.dataset.value === mode);
+            });
+
+            const actionLabel = document.getElementById('btn-convert-img-action-label');
+            const orderCopy = document.getElementById('convert-img-order-copy');
+            const zipNotice = document.getElementById('convert-img-zip-notice-v2');
+            if (actionLabel) {
+                actionLabel.textContent = mode === 'merged'
+                    ? 'PDFに結合してダウンロード'
+                    : '個別PDF(ZIP)でダウンロード';
+            }
+            if (orderCopy) {
+                orderCopy.textContent = mode === 'merged'
+                    ? '上から順にPDFのページになります。↑↓で並び順を調整できます。'
+                    : '上から順に個別PDF化し、その並びでZIPにまとめます。↑↓で並び順を調整できます。';
+            }
+            if (zipNotice) {
+                zipNotice.classList.toggle('hidden', mode !== 'split');
+            }
+        }
+
+        function showZipAftercareToast() {
+            showToast('ZIP内のPDFが開けない場合は、ZIPをデスクトップ等へ移動してから展開してください。既存の展開済みPDFが残っている場合は削除して再展開してください。', 'info', 6200);
+        }
+
+        function normalizeHexColor(hex) {
+            if (typeof hex !== 'string') return '#4B5563';
+            const trimmed = hex.trim();
+            const match = trimmed.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+            if (!match) return '#4B5563';
+            const raw = match[1];
+            if (raw.length === 3) {
+                return `#${raw.split('').map((ch) => ch + ch).join('').toUpperCase()}`;
+            }
+            return `#${raw.toUpperCase()}`;
+        }
+
+        function setPagenumColor(hex, fromCustom = false) {
+            const normalized = normalizeHexColor(hex);
+            const colorInput = document.getElementById('pagenum-color');
+            const customInput = document.getElementById('pagenum-custom-color');
+            const colorCode = document.getElementById('pagenum-color-code');
+            const customCard = document.getElementById('pagenum-custom-color-card');
+            const customSwatch = document.getElementById('pagenum-custom-color-swatch');
+            const presetButtons = document.querySelectorAll('.color-swatch-option');
+            const presetMatch = Array.from(presetButtons).find((button) => normalizeHexColor(button.dataset.color) === normalized);
+
+            if (colorInput) colorInput.value = normalized;
+            if (customInput) customInput.value = normalized;
+            if (colorCode) colorCode.textContent = normalized;
+            if (customSwatch) customSwatch.style.background = normalized;
+            if (customCard) customCard.classList.toggle('is-selected', fromCustom || !presetMatch);
+
+            presetButtons.forEach((button) => {
+                button.classList.toggle('is-selected', !fromCustom && normalizeHexColor(button.dataset.color) === normalized);
+            });
+        }
+
+        function hexToPdfRgb(hex, rgbFn) {
+            const normalized = normalizeHexColor(hex).replace('#', '');
+            const r = parseInt(normalized.slice(0, 2), 16) / 255;
+            const g = parseInt(normalized.slice(2, 4), 16) / 255;
+            const b = parseInt(normalized.slice(4, 6), 16) / 255;
+            return rgbFn(r, g, b);
+        }
+
+        async function appendImageFileToPdf(pdfDoc, file) {
+            const arrayBuffer = await file.arrayBuffer();
+            let image = null;
+            if (file.type === 'image/jpeg') {
+                image = await pdfDoc.embedJpg(arrayBuffer);
+            } else if (file.type === 'image/png') {
+                image = await pdfDoc.embedPng(arrayBuffer);
+            }
+
+            if (!image) return false;
+
+            const page = pdfDoc.addPage([image.width, image.height]);
+            page.drawImage(image, {
+                x: 0,
+                y: 0,
+                width: image.width,
+                height: image.height,
+            });
+            return true;
+        }
+
+        function moveMergeFile(index, direction) {
+            moveArrayItem(mergeFiles, index, direction);
+            updateMergeFileList();
+        }
+
+        function moveConvertImgFile(index, direction) {
+            moveArrayItem(convertImgFiles, index, direction);
+            updateConvertImgList();
         }
 
         // --- 結合機能 ---
@@ -1252,25 +1837,20 @@
 
         function updateMergeFileList() {
             const listElement = document.getElementById('merge-file-list');
+            const panel = document.getElementById('merge-file-panel');
             const btnAction = document.getElementById('btn-merge-action');
             listElement.innerHTML = '';
+            panel.classList.toggle('hidden', mergeFiles.length === 0);
             
             mergeFiles.forEach((file, index) => {
-                const fileSize = (file.size / 1024 / 1024).toFixed(2) + ' MB';
-                const item = document.createElement('div');
-                item.className = 'file-row group';
-                item.innerHTML = `
-                    <div class="flex items-center gap-3 overflow-hidden">
-                        <span class="material-symbols-outlined file-icon">description</span>
-                        <div class="truncate">
-                            <p class="text-sm font-medium text-slate-700 truncate">${file.name}</p>
-                            <p class="text-xs text-slate-400">${fileSize}</p>
-                        </div>
-                    </div>
-                    <button onclick="removeMergeFile(${index})" class="text-slate-400 hover:text-error transition-colors p-1 rounded-full hover:bg-errorContainer" title="削除">
-                        <span class="material-symbols-outlined icon-button-symbol">close</span>
-                    </button>
-                `;
+                const item = createOrderedFileRow({
+                    file,
+                    index,
+                    total: mergeFiles.length,
+                    icon: 'description',
+                    onMove: 'moveMergeFile',
+                    onRemove: 'removeMergeFile',
+                });
                 listElement.appendChild(item);
             });
             btnAction.disabled = mergeFiles.length < 2;
@@ -1348,10 +1928,14 @@
         function toggleExtractMode() {
             const mode = document.querySelector('input[name="split_mode"]:checked').value;
             const extractUI = document.getElementById('extract-ui-container');
+            const zipNotice = document.getElementById('split-zip-notice-v2');
             if (mode === 'extract') {
                 extractUI.classList.remove('hidden');
             } else {
                 extractUI.classList.add('hidden');
+            }
+            if (zipNotice) {
+                zipNotice.classList.toggle('hidden', mode !== 'all');
             }
         }
 
@@ -1467,6 +2051,7 @@
                     const zipBlob = await zip.generateAsync({ type: 'blob' });
                     downloadBlob(zipBlob, `split_${splitFile.name.replace(/\.pdf$/i, '')}.zip`, "application/zip");
                     showToast('分割が完了し、ZIPファイルをダウンロードしました！', 'success');
+                    showZipAftercareToast();
 
                 } else if (mode === 'extract') {
                     // UIから選択されたインデックスを取得
@@ -1551,6 +2136,7 @@
                 btnPdfToImg.className = inactiveClass;
                 uiImgToPdf.classList.remove('hidden');
                 uiPdfToImg.classList.add('hidden');
+                updateImgToPdfModeUI();
             }
         }
 
@@ -1662,25 +2248,20 @@
 
         function updateConvertImgList() {
             const listElement = document.getElementById('convert-img-list');
+            const panel = document.getElementById('convert-img-file-panel');
             const btnAction = document.getElementById('btn-convert-img-action');
             listElement.innerHTML = '';
+            panel.classList.toggle('hidden', convertImgFiles.length === 0);
             
             convertImgFiles.forEach((file, index) => {
-                const fileSize = (file.size / 1024 / 1024).toFixed(2) + ' MB';
-                const item = document.createElement('div');
-                item.className = 'file-row group';
-                item.innerHTML = `
-                    <div class="flex items-center gap-3 overflow-hidden">
-                        <span class="material-symbols-outlined file-icon">image</span>
-                        <div class="truncate">
-                            <p class="text-sm font-medium text-slate-700 truncate">${file.name}</p>
-                            <p class="text-xs text-slate-400">${fileSize}</p>
-                        </div>
-                    </div>
-                    <button onclick="removeConvertImgFile(${index})" class="text-slate-400 hover:text-error transition-colors p-1 rounded-full hover:bg-errorContainer" title="削除">
-                        <span class="material-symbols-outlined icon-button-symbol">close</span>
-                    </button>
-                `;
+                const item = createOrderedFileRow({
+                    file,
+                    index,
+                    total: convertImgFiles.length,
+                    icon: 'image',
+                    onMove: 'moveConvertImgFile',
+                    onRemove: 'removeConvertImgFile',
+                });
                 listElement.appendChild(item);
             });
             btnAction.disabled = convertImgFiles.length === 0;
@@ -1688,36 +2269,43 @@
 
         async function processImgToPdf() {
             if (convertImgFiles.length === 0) return;
-            showLoading("PDFを作成しています...");
+            const outputMode = getImgToPdfOutputMode();
+            showLoading(outputMode === 'merged' ? "PDFを作成しています..." : "個別PDFを作成してZIPをまとめています...");
 
             try {
                 const { PDFDocument } = window.PDFLib;
-                const pdfDoc = await PDFDocument.create();
+                if (outputMode === 'merged') {
+                    const pdfDoc = await PDFDocument.create();
+                    for (const file of convertImgFiles) {
+                        await appendImageFileToPdf(pdfDoc, file);
+                    }
+                    const pdfBytes = await pdfDoc.save();
+                    downloadBlob(pdfBytes, "converted_images.pdf", "application/pdf");
+                    showToast('画像を1つのPDFにまとめました！', 'success');
+                } else {
+                    const zip = new JSZip();
+                    const usedNames = new Map();
+                    const digits = String(convertImgFiles.length).length;
 
-                for (const file of convertImgFiles) {
-                    const arrayBuffer = await file.arrayBuffer();
-                    let image;
-                    if (file.type === 'image/jpeg') {
-                        image = await pdfDoc.embedJpg(arrayBuffer);
-                    } else if (file.type === 'image/png') {
-                        image = await pdfDoc.embedPng(arrayBuffer);
+                    for (const [index, file] of convertImgFiles.entries()) {
+                        const singlePdf = await PDFDocument.create();
+                        const appended = await appendImageFileToPdf(singlePdf, file);
+                        if (!appended) continue;
+
+                        const pdfBytes = await singlePdf.save();
+                        const baseName = getFileBaseName(file.name);
+                        const currentCount = usedNames.get(baseName) || 0;
+                        usedNames.set(baseName, currentCount + 1);
+                        const uniqueBaseName = currentCount === 0 ? baseName : `${baseName}_${currentCount + 1}`;
+                        const prefix = String(index + 1).padStart(digits, '0');
+                        zip.file(`${prefix}_${uniqueBaseName}.pdf`, pdfBytes);
                     }
 
-                    if (image) {
-                        // 画像サイズに合わせたPDFページを作成
-                        const page = pdfDoc.addPage([image.width, image.height]);
-                        page.drawImage(image, {
-                            x: 0,
-                            y: 0,
-                            width: image.width,
-                            height: image.height,
-                        });
-                    }
+                    const zipBlob = await zip.generateAsync({ type: 'blob' });
+                    downloadBlob(zipBlob, "converted_images_pdfs.zip", "application/zip");
+                    showToast('個別PDFをZIPにまとめて出力しました！', 'success');
+                    showZipAftercareToast();
                 }
-
-                const pdfBytes = await pdfDoc.save();
-                downloadBlob(pdfBytes, "converted_images.pdf", "application/pdf");
-                showToast('PDFへの変換が完了しました！', 'success');
                 
                 // 処理後にリストをクリア
                 convertImgFiles = [];
@@ -1883,13 +2471,15 @@
                 const position = document.getElementById('pagenum-position').value;
                 const fontSize = parseInt(document.getElementById('pagenum-size').value, 10);
                 const format = document.querySelector('input[name="pagenum_format"]:checked').value;
+                const selectedColor = document.getElementById('pagenum-color').value;
+                const targetIndexSet = new Set(targetIndices);
                 
                 const totalTargetPages = targetIndices.length;
                 let currentNumber = 1; // 印字するページ番号カウンター
                 
                 for (let i = 0; i < pages.length; i++) {
                     // 指定されたページ範囲外ならスキップ
-                    if (!targetIndices.includes(i)) continue;
+                    if (!targetIndexSet.has(i)) continue;
 
                     const page = pages[i];
                     const { width, height } = page.getSize();
@@ -1932,7 +2522,7 @@
                         y: y,
                         size: fontSize,
                         font: font,
-                        color: rgb(0.3, 0.3, 0.3), // 落ち着いたグレー
+                        color: hexToPdfRgb(selectedColor, rgb),
                     });
 
                     currentNumber++; // 対象ページに描画したらカウンターを進める
@@ -1961,6 +2551,10 @@
             });
             pagenumDropzone.addEventListener('drop', (e) => handlePagenumFileSelect({ target: { files: e.dataTransfer.files } }));
         }
+
+        toggleExtractMode();
+        updateImgToPdfModeUI();
+        setPagenumColor(document.getElementById('pagenum-color').value);
 
     </script>
 </body>
